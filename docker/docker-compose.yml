@@ -1,0 +1,29 @@
+version: '3'
+services:
+  backend:
+    build: 
+      context: ../
+      dockerfile: docker/Dockerfile.development 
+      args:
+        port: ${PORT}
+    env_file:
+      - ../.env
+    restart: always
+    ports:
+      - "${PORT}:${PORT}"
+    volumes:
+      - ../:/home/nodejs/app
+    environment:
+      WAIT_HOSTS: database:27017   
+    command: npm run local
+
+
+  database:
+    image: mongo:4.0
+    env_file:
+      - ../.env
+    volumes:
+      - ".${MONGO_DATA_DIR}:${MONGO_DATA_DIR}"
+    expose:
+      - 27017
+    command: "mongod --smallfiles --logpath=${MONGO_LOG_FILE}"
