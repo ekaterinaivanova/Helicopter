@@ -12,13 +12,15 @@
     "lint": "eslint --fix"
   },
   "husky": {
-  "hooks": {
+    "hooks": {
       "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
     "./src/**/*.js": [
-      "npm run lint", "git add"
+      "prettier --write",
+      "npm run lint",
+      "git add"
     ]
   },
   "repository": {
@@ -43,6 +45,7 @@
     "husky": "^3.0.9",
     "lint-staged": "^9.4.3",
     "nodemon": "^1.19.4",
+    "prettier": "1.19.1",
     "supertest": "^4.0.2"
   }
 }

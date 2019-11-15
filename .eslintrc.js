@@ -17,7 +17,7 @@ module.exports = {
   rules: {
     "consistent-return": 0,
     "no-restricted-syntax":0,
-    "guard-for-in":0
-
+    "guard-for-in":0,
+    "omitLastInOneLineBlock": 0
   },
 };
