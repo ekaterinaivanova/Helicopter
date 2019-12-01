@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import autopopulate from 'mongoose-autopopulate';
 
 const { Schema } = mongoose;
 
@@ -30,7 +29,5 @@ const helicopter = new Schema({
     required: false
   }
 });
-
-helicopter.plugin(autopopulate);
 
 module.exports = mongoose.model('helicopters', helicopter);
