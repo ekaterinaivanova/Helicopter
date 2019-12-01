@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import autopopulate from 'mongoose-autopopulate';
 
 const { Schema } = mongoose;
 
@@ -10,18 +11,25 @@ const helicopter = new Schema({
     required: true,
     min: [1988, 'This helicopter is too old'],
     validate: {
-      validator: (value) => {
-        if (value >= new Date().getFullYear()) {
+      validator: value => {
+        const currentYear = new Date().getFullYear();
+        if (value > currentYear) {
           return false;
         }
         return true;
       },
-      message: 'This helicopter doesn\'t exist yet.',
-    },
+      message: "This helicopter doesn't exist yet."
+    }
   },
   numberOfBlades: { type: Number, required: true },
   color: { type: String, required: true },
   isAvailable: { type: Boolean, required: true },
+  class: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'helicopterClass'
+  }
 });
+
+helicopter.plugin(autopopulate);
 
 module.exports = mongoose.model('helicopters', helicopter);

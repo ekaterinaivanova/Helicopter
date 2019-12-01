@@ -18,6 +18,11 @@ module.exports = {
     "consistent-return": 0,
     "no-restricted-syntax":0,
     "guard-for-in":0,
-    "omitLastInOneLineBlock": 0
+    "omitLastInOneLineBlock": 0,
+    "no-underscore-dangle": 0,
+    "comma-dangle": 0,
+    "semi": 0,
+    "no-underscore-dangle": 0,
+    "arrow-parens": 0
   },
 };
