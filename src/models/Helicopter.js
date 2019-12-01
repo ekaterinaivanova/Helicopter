@@ -21,12 +21,13 @@ const helicopter = new Schema({
       message: "This helicopter doesn't exist yet."
     }
   },
-  numberOfBlades: { type: Number, required: true },
-  color: { type: String, required: true },
+  numberOfBlades: { type: Number, required: false },
+  color: { type: String, required: false },
   isAvailable: { type: Boolean, required: true },
   class: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'helicopterClass'
+    ref: 'helicopterClass',
+    required: false
   }
 });
 
