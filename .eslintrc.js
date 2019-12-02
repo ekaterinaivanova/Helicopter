@@ -4,7 +4,7 @@ module.exports = {
     node: true,
   },
   extends: [
-    'airbnb-base',
+    'airbnb-base'
   ],
   globals: {
     Atomics: 'readonly',
@@ -25,4 +25,15 @@ module.exports = {
     "no-underscore-dangle": 0,
     "arrow-parens": 0
   },
+  overrides: [
+    {
+        files: [ "./src/tests/**/*.test.js"],
+        env: { mocha: true, es6: true, node: true },
+        plugins: ["mocha", "chai-friendly"],
+        rules: {
+          "no-unused-expressions": 0,
+          "chai-friendly/no-unused-expressions": 2
+        }
+    }
+]
 };
