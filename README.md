@@ -4,6 +4,7 @@ BE homework
 docker
 ### How to start
 npm run build
+
 npm run dev
 
 ##Usage
