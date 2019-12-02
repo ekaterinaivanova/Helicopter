@@ -10,8 +10,8 @@ npm run dev
 
 ### Endpoints
 
-- GET, POST `http://localhost:80/api/helicopters`
-- GET, PUT, DELETE `http://localhost:80/api/helicopters/:id`
+- GET, POST `http://localhost:8080/api/helicopters`
+- GET, PUT, DELETE `http://localhost:8080/api/helicopters/:id`
 
 #### Post
 
