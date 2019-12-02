@@ -7,7 +7,6 @@ npm run build
 
 npm run dev
 
-##Usage
 
 ### Endpoints
 
@@ -27,6 +26,6 @@ npm run dev
   class //ID FK to helicopter-class
 }
 ```
-####LIST
+### LIST
 
 Example: http://localhost/api/helicopters?isAvailable=true&populate=class&select=name
