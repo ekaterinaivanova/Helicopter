@@ -8,6 +8,7 @@ npm run build
 npm run dev
 
 ##Usage
+
 ### Endpoints
 
 - GET, POST `http://localhost:80/api/helicopters`
@@ -27,4 +28,5 @@ npm run dev
 }
 ```
 ####LIST
+
 Example: http://localhost/api/helicopters?isAvailable=true&populate=class&select=name
