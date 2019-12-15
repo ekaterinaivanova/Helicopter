@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import HelicopterClass from '../models/HelicopterClass';
+import HelicopterClass from '../../models/HelicopterClass';
 
 describe('Helicopter', () => {
   it('should be valid if all required fields are present', done => {

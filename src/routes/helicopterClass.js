@@ -1,10 +1,8 @@
 import express from 'express';
-import { core } from '../controllers/core';
+import { core } from '../controllers/crud.controller';
 
 const router = express.Router();
-const {
-  fetchItem, list, read, create, deleteItem, update
-} = core(
+const { fetchItem, list, read, create, deleteItem, update } = core(
   'HelicopterClass'
 );
 
