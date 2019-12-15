@@ -4,13 +4,14 @@ BE homework
 docker
 ### How to start
 npm run build
+
 npm run dev
 
-##Usage
+
 ### Endpoints
 
-- GET, POST `http://localhost:80/api/helicopters`
-- GET, PUT, DELETE `http://localhost:80/api/helicopters/:id`
+- GET, POST `http://localhost:8080/api/helicopters`
+- GET, PUT, DELETE `http://localhost:8080/api/helicopters/:id`
 
 #### Post
 
@@ -25,5 +26,6 @@ npm run dev
   class //ID FK to helicopter-class
 }
 ```
-####LIST
+### LIST
+
 Example: http://localhost/api/helicopters?isAvailable=true&populate=class&select=name
