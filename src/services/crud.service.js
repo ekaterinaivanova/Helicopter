@@ -20,10 +20,10 @@ const filterItems = (Model, req) => {
   for (const fieldName in req.query) {
     // eslint-disable-next-line no-prototype-builtins
     if (
-      fieldName !== 'populate' &&
-      fieldName !== 'select' &&
+      fieldName !== 'populate'
+      && fieldName !== 'select'
       // eslint-disable-next-line no-prototype-builtins
-      req.query.hasOwnProperty(fieldName)
+      && req.query.hasOwnProperty(fieldName)
     ) {
       if (req.query[fieldName]) {
         const schemaAttribute = Model.schema.path(fieldName);
@@ -41,7 +41,22 @@ const filterItems = (Model, req) => {
             default:
           }
         } else {
-          throw Error(`You are not allowed to filter by ${fieldName}`);
+          switch (fieldName) {
+            case 'page':
+            case 'limit':
+              req.query[fieldName] = Number(req.query[fieldName]);
+              // eslint-disable-next-line no-restricted-globals
+              if (isNaN(req.query[fieldName])) {
+                throw Error(`${fieldName} should be a number`);
+              } else if (!Number.isInteger(Number(req.query[fieldName]))) {
+                throw Error(`${fieldName} should be an integer`);
+              } else if (req.query[fieldName] <= 0) {
+                throw Error(`${fieldName} should be a positive integer`);
+              }
+              break;
+            default:
+              throw Error(`You are not allowed to filter by ${fieldName}`);
+          }
         }
       }
     }
@@ -51,14 +66,15 @@ const filterItems = (Model, req) => {
 const validateFields = (Model, fields) => {
   for (const fieldName in fields) {
     if (
-      !Model.schema.path(fieldName) ||
-      fieldName === '_id' ||
-      fieldName === '__v'
+      !Model.schema.path(fieldName)
+      || fieldName === '_id'
+      || fieldName === '__v'
     ) {
       throw Error(`Unknown field ${fieldName}`);
     }
   }
 };
+
 const readItem = (Model, req) => Model.findById(req.params.id);
 const createItem = (Model, req) => {
   const helicopter = new Model(req.body);
@@ -72,6 +88,25 @@ const updateItem = (Model, req) => {
   return Model.save();
 };
 
+const paginateList = async (Model, req) => {
+  const page = req.query.page ? req.query.page - 1 : 0;
+  const limit = req.query.limit ? req.query.limit : 3;
+  const results = await Model.skip(page * (limit + 1)).limit(limit + 1);
+  // limit + 1 to detect if there are more items than the limit
+  const hasNext = results.length > limit;
+  const hasPrevious = page !== 0;
+  if (hasNext) {
+    results.splice(results.length - 1, 1);
+  }
+  return {
+    results,
+    pagination: {
+      hasNext,
+      hasPrevious
+    }
+  };
+};
+
 module.exports = {
   listItems,
   selectItems,
@@ -80,5 +115,6 @@ module.exports = {
   readItem,
   createItem,
   validateFields,
-  updateItem
+  updateItem,
+  paginateList
 };

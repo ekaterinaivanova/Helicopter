@@ -6,7 +6,8 @@ import {
   readItem,
   createItem,
   validateFields,
-  updateItem
+  updateItem,
+  paginateList
 } from '../services/crud.service';
 
 function core(routeName) {
@@ -18,8 +19,10 @@ function core(routeName) {
       let items = listItems(Model, req);
       items = filterItems(items, req);
       items = selectItems(items, req);
-      items = await populateItems(items, req);
-      res.json(items);
+      items = populateItems(items, req);
+      const { pagination, results } = await paginateList(items, req);
+      console.log('pagination, result', pagination, results);
+      res.json({ results, pagination });
     } catch (err) {
       res.status(500).json({ message: err.message });
     }
